@@ -1,0 +1,17 @@
+h1 {
+    color: rgba(0, 200, 100, 0.8);
+    /* border-color: purple;
+    border-width: 5px;
+    border-style: solid; */
+    /* border: 5px dashed rgb(255, 100, 80); */
+    border: 2px solid rgb(255, 100, 80);
+}
+h4 {
+    background: rgb(255, 100, 80);
+}
+body {
+    background: pink;
+    /* background:url(https://kawaiidrawings.com/wp-content/uploads/wood-grain-curves-intro.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
