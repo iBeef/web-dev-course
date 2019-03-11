@@ -1,0 +1,41 @@
+body {
+    border: 20px solid #bdc3c7;
+    padding: 20px;
+    /*  Apply a max width until not possible then
+    do 80% */
+    max-width: 700px;
+    width: 80%;
+    margin: 20px auto;
+    /*  Everything in the body will have this font. */
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 2.0rem;
+    font-weight: 800;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.post {
+    margin-bottom: 20px;
+}
+
+.quote {
+    border-left: 5px solid #bdc3c7;
+    padding-left: 5px;
+}
+
+.date {
+    color: #3498db;
+    text-transform: uppercase;
+    /* rem set as relative to root element on page */
+    letter-spacing: 0.2rem;
+}
+
