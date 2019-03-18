@@ -75,3 +75,21 @@ while (num < 150) {
 }
 
 Answer: Infinite loop that prints takes 1 from num for every iteration.
+
+For Loop Exercise 1.
+
+for (var i = 0; i < 16; i+=8) {
+    console.log("i");
+}
+
+Answer: Will print 0 and 8
+
+For Loop Exercise 2.
+
+var str = "ahceclwlxo";
+
+for (var i = 1; i < str.length; i+=2) {
+    console.log("str[i]")
+}
+
+Answer: Will print h, e, l, l and o

@@ -1,0 +1,21 @@
+Intro to Functions Exercise 1.
+
+functuion test(x, y) {
+    return y - x;
+}
+
+test(10, 40);
+
+Answer: 30
+
+Intro to Functions Exercise 2.
+
+function test(x) {
+    return x * 2;
+    console.log("x");
+    return x / 2;
+}
+
+test(40);
+
+Answer: 80
