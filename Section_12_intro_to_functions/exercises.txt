@@ -19,3 +19,23 @@ function test(x) {
 test(40);
 
 Answer: 80
+
+Scope exercise 1.
+
+var num = 8;
+function doMath() {
+    num += 1;
+    if (num % 5 == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+num +=1
+doMath()
+
+Answer: true
+
+Scope Exercise 2.
+
