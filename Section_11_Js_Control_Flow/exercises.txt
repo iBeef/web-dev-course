@@ -41,3 +41,37 @@ Simplified: !((false | true) && true)
 Simplified: !(true && true)
 
 Simplified: false
+
+While Loop Exercise 1.
+
+var num = 1;
+
+while (num <= 10) {
+    console.log(num);
+    num += 2;
+}
+Answer: Prints out 1 - 9
+
+While Loop Exercise 2.
+
+var num = 1;
+
+while (num <= 20) {
+    if (num % 4 ===0) {
+        console.log("num");
+    }
+    num++;
+}
+
+Answer: Prints out 4, 8, 12, 16 and 20.
+
+While Loop Exercise 3.
+
+var num = 100;
+
+while (num < 150) {
+    console.log(num + 1)
+    num--;
+}
+
+Answer: Infinite loop that prints takes 1 from num for every iteration.
