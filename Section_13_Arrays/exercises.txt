@@ -1,0 +1,17 @@
+Array Exercise 1.
+
+var numbers = [22, 67, 33, 96, 88];
+
+console.log(numbers[numbers.length]);
+
+Answer: Undefined
+
+var friendGroups = [
+    ["Harry", "Ron", "Hermoine"],
+    ["Malfoy", "Crabbe", "Goyle"],
+    ["Mooney", "Wormtail", "Prongs"]
+];
+
+console.log(friendGroups[2][0]);
+
+Answer: Mooney
