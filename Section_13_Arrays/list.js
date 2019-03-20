@@ -7,13 +7,32 @@ setTimeout(function () {
 
     while (input !== "quit") {
         if (input === "list") {
-            console.log(todos);
+            listTodos();
         } else if (input === "new") {
-            var newTodo = prompt("Enter a new Todo.");
-            todos.push(newTodo);
+            addTodo();
+        } else if (input === "delete") {
+            deleteTodo();
         }
         input = prompt("What would you like to do?");
     }
     console.log("Ok you quit the app.")
+
+    function listTodos() {
+        console.log("**********");
+        todos.forEach(function(todo, i) {
+            console.log(i + ": " + todo);
+        });
+        console.log("**********");
+    }
+    function addTodo() {
+        var newTodo = prompt("Enter a new Todo.");
+        todos.push(newTodo);
+    }
+
+    function deleteTodo() {
+        var index = prompt("Enter the index of the todo to delete.");
+        todos.splice(index, 1);
+        console.log("Deleted todo");
+    }    
 
 }, 500);
