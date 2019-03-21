@@ -1,0 +1,33 @@
+Objects Exercise 1.
+
+var someObject = {};
+
+// Which of the following are valid.
+
+A) someObject._name = "Hedwig";
+
+B) someObject.age = 6;
+
+C) var prop = "colour";
+   
+   someObject[prop] = "red";
+
+D) someObject.123 = true;
+
+A - Valid, B - Valid, C - Valid, D - Invalid
+
+Objects Exercise 2.
+
+var someObject = {
+    friends: [
+        {name: "Malfoy"},
+        {name: "Crabbe"},
+        {name: "Goyle"},
+    ],
+    colour: "baby blue",
+    isEvil: true 
+};
+
+// Code to retrieve "Malfoy"
+
+someObject.friends[0].name;
