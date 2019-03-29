@@ -1,9 +1,9 @@
 // Check off specific todos by clicking.
-$('li').click(function() {
+$('ul').on('click', 'li', function() {
     $(this).toggleClass('completed');
 });
 
-$('span').click(function(event) {
+$('ul').on('click', 'span', function(event) {
     console.log('clicked span');
     event.stopPropagation();
     $(this).parent().fadeOut(500, function() {
@@ -12,14 +12,10 @@ $('span').click(function(event) {
 
 })
 
-$('ul').click(function() {
-    console.log('clicked ul');
-});
-
-$('#container').click(function() {
-    console.log('clicked span');
-});
-
-$('body').click(function() {
-    console.log('clicked body');
+$("input[type='text']").keypress(function(event) {
+    if( event.which === 13) {
+        todoText = $(this).val();
+        $(this).val('');
+        $('ul').append(`<li><span>X </span>${todoText}</li>`)
+    }
 });
