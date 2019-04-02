@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circles</title>
+    <link rel="stylesheet" href="circles.css">
+    <script src="paper-full.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">  
+        redVal = 56;
+        for(var y = 0; y <= 1000; y += 100) {
+            for(var x = 0; x <= 1000; x += 100) {
+                var circle = new Path.Circle(new Point(x, y), 10);
+                circle.fillColor = 'rgba(' + redVal + ', 85, 175, 1)';
+                redVal += 20;
+            }
+            redVal = 56;
+        }
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+</body>
+</html>
