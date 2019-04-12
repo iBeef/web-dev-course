@@ -20,18 +20,18 @@ var campgroundSchema = new mongoose.Schema({
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
-Campground.create({
-    name: "Granite Hill",
-    image: "https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg",
-    description: "This is a huge granite hill, no bathrooms. No water. Beautiful Granite!"
-}, (err, campground) => {
-    if(err) {
-        console.log(err);
-    } else {
-        console.log("Newly created campground: ");
-        console.log(campground);
-    }
-});
+// Campground.create({
+//     name: "Granite Hill",
+//     image: "https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg",
+//     description: "This is a huge granite hill, no bathrooms. No water. Beautiful Granite!"
+// }, (err, campground) => {
+//     if(err) {
+//         console.log(err);
+//     } else {
+//         console.log("Newly created campground: ");
+//         console.log(campground);
+//     }
+// });
 
 // GET routes
 app.get('/', (req, res) => {
@@ -44,7 +44,7 @@ app.get('/campgrounds', (req, res) => {
         if(err) {
             console.log(err);
         } else {
-            res.render('campgrounds', {campgrounds: result});     
+            res.render('index', {campgrounds: result});     
         }
     });
 });
@@ -55,8 +55,14 @@ app.get('/campgrounds/new', (req, res) => {
 
 app.get("/campgrounds/:id", (req, res) => {
     //  Find campground with provided id.
-    // Render the show twmplate with that campground
-    res.send("This will be the show page one day");
+    Campground.findById(req.params.id, (err, result)=> {
+        if(err) {
+            console.log(err)
+        } else {
+            // Render the show twmplate with that campground
+            res.render('show', {campground: result});    
+        }
+    });
 });
 
 // POST routes
@@ -64,7 +70,12 @@ app.post('/campgrounds', (req, res) => {
     // Get data from form and add to camp grounds array.
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image: image};
+    var desc = req.body.description;
+    var newCampground = {
+        name: name,
+        image: image,
+        description: desc
+    };
     //  Create a new campground and save to db
     Campground.create(newCampground, (err, result) => {
         if(err) {
