@@ -10,6 +10,6 @@ i.icon {
     margin-top: 7em;
 }
 
-/* .showBlog {
-    width: 80%;
-} */
+#delete {
+    display: inline;
+}

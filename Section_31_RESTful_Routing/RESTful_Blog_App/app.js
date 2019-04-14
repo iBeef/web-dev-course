@@ -1,13 +1,15 @@
-var bodyParser     = require("body-parser"),
-    express        = require('express'),
-    methodOverride = require("method-override"),
-    mongoose       = require('mongoose'),
-    app            = express();
+var bodyParser       = require("body-parser"),
+    express          = require('express'),
+    expressSanitizer = require("express-sanitizer"),
+    methodOverride   = require("method-override"),
+    mongoose         = require('mongoose'),
+    app              = express();
 
 // Setup app
 app.set("view engine", 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer());
 app.use(methodOverride("_method"))
 
 // Setup DB
@@ -48,6 +50,8 @@ app.get("/blogs/new", (req, res) => {
 
 // Create Route
 app.post("/blogs", (req, res) => {
+    // Sanitize body
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     // Create blog
     Blog.create(req.body.blog, (err, result) => {
         if(err) {
@@ -83,11 +87,27 @@ app.get("/blogs/:id/edit", (req, res) => {
 
 // Update Route
 app.put("/blogs/:id", (req, res) => {
+    // Sanitize body
+    req.body.blog.body = req.sanitize(req.body.blog.body);
+    // Update db
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, result) => {
         if(err) {
             res.redirect("/blogs");
         } else {
             res.redirect(`/blogs/${req.params.id}`);
+        }
+    });
+});
+
+// Delete Route
+app.delete("/blogs/:id", (req, res) => {
+    // Destroy blog
+    Blog.findByIdAndRemove(req.params.id, (err) => {
+        if(err) {
+            res.redirect("/blogs");
+        } else {
+            // Redirect somewhere
+            res.redirect("/blogs");
         }
     });
 });
