@@ -1,32 +1,11 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Post     = require("./models/post"),
+    User     = require("./models/user");
 
 mongoose.connect(
     "mongodb://localhost:27017/blog_demo_2",
     {useNewUrlParser: true}
 );
-
-// Post - Title, Content
-
-var postSchema = new mongoose.Schema({
-    title: String,
-    content: String
-});
-
-var Post = mongoose.model('Post', postSchema);
-
-// User - Email, Name
-var userSchema = new mongoose.Schema({
-    email: String,
-    name: String,
-    posts: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Post'
-        }
-    ]
-});
-
-var User = mongoose.model('User', userSchema);
 
 // Create a user
 // User.create({
@@ -48,8 +27,8 @@ var User = mongoose.model('User', userSchema);
 
 // Create a post and update user
 Post.create({
-    title: "How to cook the best burger pt. 3",
-    content: "Even even more instructions and stuff about burgers!"
+    title: "How to cook the best burger pt. 4",
+    content: "The final chapter on  instructions and stuff about burgers!"
 }, (err, post) => {
     if(err) {
         console.log(err);
@@ -67,11 +46,11 @@ Post.create({
     }
 });
 
-// Find posts by user
-User.findOne({email: "bob@gmail.com"}).populate('posts').exec((err, user) => {
-    if(err) {
-        console.log(err);
-    } else {
-        console.log(user);
-    }
-});
+// // Find posts by user
+// User.findOne({email: "bob@gmail.com"}).populate('posts').exec((err, user) => {
+//     if(err) {
+//         console.log(err);
+//     } else {
+//         console.log(user);
+//     }
+// });
