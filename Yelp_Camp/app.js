@@ -6,60 +6,47 @@ var express    = require("express"),
 
 var app = express();
 
-seedDB();
-
 // App setup
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", 'ejs');
 
-
-// Campground.create({
-//     name: "Granite Hill",
-//     image: "https://farm8.staticflickr.com/7205/7121863467_eb0aa64193.jpg",
-//     description: "This is a huge granite hill, no bathrooms. No water. Beautiful Granite!"
-// }, (err, campground) => {
-//     if(err) {
-//         console.log(err);
-//     } else {
-//         console.log("Newly created campground: ");
-//         console.log(campground);
-//     }
-// });
+seedDB();
 
 // GET routes
 app.get('/', (req, res) => {
     res.render('landing');
 });
 
-app.get('/campgrounds', (req, res) => {
+app.get("/campgrounds", (req, res) => {
     // Get all campgrounds from db
     Campground.find({}, (err, result) => {
         if(err) {
             console.log(err);
         } else {
-            res.render('index', {campgrounds: result});     
+            res.render("campgrounds/index", {campgrounds: result});     
         }
     });
 });
 
 app.get('/campgrounds/new', (req, res) => {
-    res.render('new');
+    res.render("./campgrounds/new");
 });
 
+// Shows more info about one campground
 app.get("/campgrounds/:id", (req, res) => {
     //  Find campground with provided id.
-    Campground.findById(req.params.id, (err, result)=> {
+    Campground.findById(req.params.id).populate("comments").exec((err, result)=> {
         if(err) {
             console.log(err)
         } else {
+            console.log(result);
             // Render the show twmplate with that campground
-            res.render('show', {campground: result});    
+            res.render("campgrounds/show", {campground: result});    
         }
     });
 });
 
-// POST routes
 app.post('/campgrounds', (req, res) => {
     // Get data from form and add to camp grounds array.
     var name = req.body.name;
@@ -77,6 +64,19 @@ app.post('/campgrounds', (req, res) => {
         } else {
             // redirect to campgrounds page.
             res.redirect("/campgrounds")
+        }
+    });
+});
+
+// Comments Routes
+
+app.get("/campgrounds/:id/comments/new", (req, res) => {
+    //  Find the campground
+    Campground.findById(req.params.id, (err, result) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("comments/new", {campground: result});
         }
     });
 });
