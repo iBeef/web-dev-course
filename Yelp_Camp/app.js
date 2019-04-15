@@ -1,6 +1,7 @@
 var express    = require("express"),
     bodyParser = require("body-parser"),
     Campground = require("./models/campground"),
+    Comment = require("./models/comment"),
     mongoose   = require("mongoose"),
     seedDB     = require("./seeds");
 
@@ -40,7 +41,6 @@ app.get("/campgrounds/:id", (req, res) => {
         if(err) {
             console.log(err)
         } else {
-            console.log(result);
             // Render the show twmplate with that campground
             res.render("campgrounds/show", {campground: result});    
         }
@@ -79,6 +79,30 @@ app.get("/campgrounds/:id/comments/new", (req, res) => {
             res.render("comments/new", {campground: result});
         }
     });
+});
+
+app.post("/campgrounds/:id/comments", (req, res) => {
+    // Lookup campground using id
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err) {
+            console.log(err);
+            res.redirect("/campgrounds");
+        } else {
+            // Create new comment
+            console.log(req.body.comment);
+            Comment.create(req.body.comment, (err, comment) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save()
+                    res.redirect(`/campgrounds/${campground._id}`);
+                }
+            });
+        }
+    });
+    // Connect new comment to campground
+    // Redirect to campground show page
 });
 
 // Start server
