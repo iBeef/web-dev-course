@@ -7,17 +7,17 @@ var data = [
     {
         name: "Clouds Rest",
         image: "https://farm1.staticflickr.com/82/225912054_690e32830d.jpg",
-        description: "Blah Blah Blah"
+        description: "Proident ut consectetur strip steak, commodo drumstick rump ut shoulder mollit burgdoggen non. Veniam elit quis minim turducken, rump cow velit. Pancetta do laborum consectetur. Hamburger laboris salami, ham hock pancetta tenderloin esse. Ground round fatback culpa qui aliqua boudin pancetta proident ullamco ham hock. Laborum cillum spare ribs, picanha elit pork belly kielbasa et magna ut."
     },
     {
         name: "Woody Woodlands",
         image: "https://farm4.staticflickr.com/3911/14707566622_af236f9b65.jpg",
-        description: "Blah Blah Blah"
+        description: "Proident ut consectetur strip steak, commodo drumstick rump ut shoulder mollit burgdoggen non. Veniam elit quis minim turducken, rump cow velit. Pancetta do laborum consectetur. Hamburger laboris salami, ham hock pancetta tenderloin esse. Ground round fatback culpa qui aliqua boudin pancetta proident ullamco ham hock. Laborum cillum spare ribs, picanha elit pork belly kielbasa et magna ut."
     },
     {
         name: "Nomads Retreat",
         image: "https://farm1.staticflickr.com/211/467048513_4042c7979f.jpg",
-        description: "Blah Blah Blah"
+        description: "Proident ut consectetur strip steak, commodo drumstick rump ut shoulder mollit burgdoggen non. Veniam elit quis minim turducken, rump cow velit. Pancetta do laborum consectetur. Hamburger laboris salami, ham hock pancetta tenderloin esse. Ground round fatback culpa qui aliqua boudin pancetta proident ullamco ham hock. Laborum cillum spare ribs, picanha elit pork belly kielbasa et magna ut."
     },
 ]
 
