@@ -17,6 +17,7 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
+passport.use(new localStrategy(User.authenticate()));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -31,10 +32,11 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get("/secret", (req, res) => {
+app.get("/secret", isLoggedIn, (req, res) => {
     res.render('secret');
 });
 
+// Register Routes
 app.get("/register", (req, res) => {
     // Show sign-up form
     res.render('register');
@@ -51,6 +53,29 @@ app.post("/register", (req, res) => {
         });
     });
 });
+
+// Login Routes
+app.get("/login", (req, res) => {
+    res.render('login');
+});
+
+app.post("/login", passport.authenticate('local', {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}), (req, res) => {});
+
+// Logout Routes
+app.get("/logout", (req, res) => {
+    req.logOut();
+    res.redirect('/');
+});
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 app.listen('3000', () => {
     console.log("The server has started.");
