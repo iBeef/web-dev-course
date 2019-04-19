@@ -24,13 +24,19 @@ router.post("/", isLoggedIn, (req, res) => {
             res.redirect("/campgrounds");
         } else {
             // Create new comment
-            console.log(req.body.comment);
+            // console.log(req.body.comment);
             Comment.create(req.body.comment, (err, comment) => {
                 if(err) {
                     console.log(err);
                 } else {
+                    // Add username and id to comment
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    // Save comment
+                    comment.save();
                     campground.comments.push(comment);
                     campground.save()
+                    console.log(comment);
                     res.redirect(`/campgrounds/${campground._id}`);
                 }
             });
@@ -38,7 +44,7 @@ router.post("/", isLoggedIn, (req, res) => {
     });
 });
 
-// M iddleware
+// Middleware
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
         return next();

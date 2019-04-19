@@ -5,7 +5,7 @@ var Campground = require("../models/campground"),
 // Index Route
 router.get("/", (req, res) => {
     // Get all campgrounds from db
-    console.log(req.user);
+    // console.log(req.user);
     Campground.find({}, (err, result) => {
         if(err) {
             console.log(err);
