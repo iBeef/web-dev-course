@@ -1,10 +1,11 @@
 var Campground = require("../models/campground"),
     Comment    = require("../models/comment"),
     express = require('express'),
+    middleware = require("../middleware"),
     router = express.Router({mergeParams: true});
 
 // Comments New
-router.get("/new", isLoggedIn, (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
     //  Find the campground
     Campground.findById(req.params.id, (err, result) => {
         if(err) {
@@ -16,7 +17,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 //  Comments Create
-router.post("/", isLoggedIn, (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
     // Lookup campground using id
     Campground.findById(req.params.id, (err, campground) => {
         if(err) {
@@ -45,7 +46,7 @@ router.post("/", isLoggedIn, (req, res) => {
 });
 
 // Comments Edit Route
-router.get("/:commentId/edit", (req, res) => {
+router.get("/:commentId/edit", middleware.checkCommentOwnership, (req, res) => {
     Comment.findById(req.params.commentId, (err, result) => {
         if(err) {
             res.redirect("back");
@@ -56,7 +57,7 @@ router.get("/:commentId/edit", (req, res) => {
 });
 
 // Comments Update Route
-router.put("/:commentId", (req, res) => {
+router.put("/:commentId", middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err, result) => {
         if(err) {
             res.redirect("back");
@@ -66,12 +67,16 @@ router.put("/:commentId", (req, res) => {
     });
 });
 
-// Middleware
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
+// Comment Destroy Route
+router.delete("/:commentId", middleware.checkCommentOwnership, (req, res) => {
+    // Comment find by id and remove
+    Comment.findByIdAndRemove(req.params.commentId, (err) => {
+        if(err) {
+            res.redirect('back');
+        } else {
+            res.redirect(`/campgrounds/${req.params.id}`);
+        }
+    });
+});
 
 module.exports = router;

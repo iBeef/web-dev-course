@@ -2,6 +2,7 @@ var express        = require("express"),
     bodyParser     = require("body-parser"),
     Campground     = require("./models/campground"),
     Comment        = require("./models/comment"),
+    flash          = require("connect-flash"),
     localStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
     mongoose       = require("mongoose"),
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", 'ejs');
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
 // seedDB();
 
 // Passport Configuration
@@ -40,6 +42,7 @@ passport.deserializeUser(User.deserializeUser());
 // Add user data to templates
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.message = req.flash('error');
     next();
 })
 
